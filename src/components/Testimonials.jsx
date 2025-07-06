@@ -1,15 +1,20 @@
-import React from 'react'
-import { Star, Quote } from 'lucide-react'
+import React, { useState } from 'react'
+import { Star, PlayCircle, Quote } from 'lucide-react'
 import './Testimonials.css'
 
 const Testimonials = () => {
+  const [activeVideo, setActiveVideo] = useState(null);
+
   const testimonials = [
     {
       id: 1,
       name: 'Sarah Immigration Law',
       title: 'Immigration Lawyer - USA 🇺🇸',
       avatar: 'S',
-      content: 'CloudSpax transformed my immigration practice! Their YouTube strategy helped me reach thousands of visa applicants. I went from 5 clients per month to over 50 consultations. The content they create perfectly explains complex immigration processes.',
+      videoUrl: 'https://example.com/testimonial1.mp4',
+      thumbnail: '/testimonials/sarah-thumb.jpg',
+      content: 'CloudSpax transformed my immigration law practice. Their video marketing expertise helped me reach thousands of potential clients, and their understanding of immigration content is exceptional.',
+      duration: '1:45',
       rating: 5
     },
     {
@@ -17,7 +22,10 @@ const Testimonials = () => {
       name: 'Quest Canada Immigration',
       title: 'Immigration Consultant - Canada 🇨🇦',
       avatar: 'Q',
-      content: 'Working with CloudSpax has been a game-changer for my Canadian immigration consultancy. Their video editing and content strategy specifically for immigration topics helped me become the go-to expert for Express Entry. Highly recommend for any immigration professional.',
+      videoUrl: 'https://example.com/testimonial2.mp4',
+      thumbnail: '/testimonials/quest-thumb.jpg',
+      content: 'Working with CloudSpax has been a game-changer for my Canadian immigration consultancy. Their video editing and content strategy specifically for immigration topics helped me become the go-to expert for Express Entry.',
+      duration: '2:10',
       rating: 5
     },
     {
@@ -25,7 +33,10 @@ const Testimonials = () => {
       name: 'Aussie Visa Solutions',
       title: 'Migration Agent - Australia 🇦🇺',
       avatar: 'A',
-      content: 'The CloudSpax team understands the immigration industry like no other. They helped me create content that resonates with skilled workers wanting to migrate to Australia. My consultation bookings increased by 300% in just 6 months.',
+      videoUrl: 'https://example.com/testimonial3.mp4',
+      thumbnail: '/testimonials/aussie-thumb.jpg',
+      content: 'The CloudSpax team understands the immigration industry like no other. They helped me create content that resonates with skilled workers wanting to migrate to Australia. My consultation bookings increased by 300%.',
+      duration: '1:55',
       rating: 5
     },
     {
@@ -33,7 +44,10 @@ const Testimonials = () => {
       name: 'UK Immigration Expert',
       title: 'Immigration Advisor - UK 🇬🇧',
       avatar: 'U',
+      videoUrl: 'https://example.com/testimonial4.mp4',
+      thumbnail: '/testimonials/uk-thumb.jpg',
       content: 'I was struggling to explain UK visa processes on YouTube until CloudSpax stepped in. Their editing and storytelling approach made my content engaging and easy to understand. Now I\'m the top immigration channel for UK visas.',
+      duration: '2:30',
       rating: 5
     },
     {
@@ -41,7 +55,10 @@ const Testimonials = () => {
       name: 'European Migration Guide',
       title: 'Immigration Consultant - Germany 🇩🇪',
       avatar: 'E',
+      videoUrl: 'https://example.com/testimonial5.mp4',
+      thumbnail: '/testimonials/europe-thumb.jpg',
       content: 'CloudSpax helped me build my YouTube presence for European immigration. Their content strategy specifically for immigration professionals is unmatched. I now get clients from all over the world seeking European visas.',
+      duration: '2:15',
       rating: 5
     },
     {
@@ -49,10 +66,19 @@ const Testimonials = () => {
       name: 'Global Visa Solutions',
       title: 'Immigration Specialist - Multiple Countries 🌍',
       avatar: 'G',
-      content: 'As someone who helps clients with visas worldwide, CloudSpax\'s expertise in immigration content marketing is outstanding. They understand the nuances of different countries\' immigration systems and create content that converts viewers into clients.',
+      videoUrl: 'https://example.com/testimonial6.mp4',
+      thumbnail: '/testimonials/global-thumb.jpg',
+      content: 'As someone who helps clients with visas worldwide, CloudSpax\'s expertise in immigration content marketing is outstanding. They understand the nuances of different countries\' immigration systems and create content that converts.',
+      duration: '1:50',
       rating: 5
     }
   ]
+
+  const handleVideoClick = (videoId) => {
+    setActiveVideo(videoId);
+    // Here you would typically open a modal or video player
+    console.log(`Playing video ${videoId}`);
+  };
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, index) => (
@@ -75,8 +101,19 @@ const Testimonials = () => {
         <div className="testimonials-grid">
           {testimonials.map((testimonial) => (
             <div key={testimonial.id} className="testimonial-card">
-              <div className="quote-icon">
-                <Quote size={24} />
+              <div className="testimonial-video-container">
+                <img 
+                  src={testimonial.thumbnail} 
+                  alt={`${testimonial.name} testimonial`}
+                  className="testimonial-thumbnail"
+                />
+                <div 
+                  className="play-button"
+                  onClick={() => handleVideoClick(testimonial.id)}
+                >
+                  <PlayCircle size={32} />
+                </div>
+                <div className="video-duration">{testimonial.duration}</div>
               </div>
               
               <div className="testimonial-content">
